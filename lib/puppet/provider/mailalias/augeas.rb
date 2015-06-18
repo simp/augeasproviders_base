@@ -60,11 +60,11 @@ Puppet::Type.type(:mailalias).provide(:augeas, :parent => Puppet::Type.type(:aug
     end
   end
 
-  def exists? 
+  def exists?
     @property_hash[:ensure] == :present and @property_hash[:target] == self.class.target(resource)
   end
 
-  def create 
+  def create
     augopen do |aug|
       aug.defnode('resource', "$target/#{next_seq(aug.match('$target/*'))}", nil)
       aug.set("$resource/name", resource[:name])
